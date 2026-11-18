@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>マークダウン記法チートシート｜情報I</title>
+<meta name="description" content="情報I「コミュニケーションと情報デザイン」。マークダウン（md）の記法を、原文・HTMLタグ・表示の3段で見比べて覚えるチートシート。">
+<style>
+:root{
+  --navy:#16204a;
+  --navy-soft:#5a6690;
+  --pink:#d1145a;
+  --pink-bg:#fdf0f5;
+  --gray-bg:#efeff2;
+  --line:#c9cbd3;
+  --text:#1c1c22;
+  --muted:#55585f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--text);background:#f6f6f8;
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;
+  line-height:1.7;font-size:16px;
+}
+code,.mono{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace}
+a{color:var(--pink)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;padding:8px 12px;z-index:10}
+.skip:focus{left:8px}
+
+header.site{background:#fff;border-bottom:4px solid var(--navy)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.site .wrap{padding-top:28px;padding-bottom:20px}
+h1{font-size:clamp(28px,5vw,40px);margin:0 0 6px;letter-spacing:.02em}
+.lead{margin:0;color:var(--muted);max-width:40em;font-size:15px}
+nav.toc{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+nav.toc a{font-size:14px;text-decoration:none;color:var(--navy);border:1px solid var(--line);border-radius:999px;padding:4px 14px;background:#fff}
+nav.toc a:hover{border-color:var(--navy)}
+
+section.page{background:#fff;margin:24px auto;max-width:1040px;padding:32px 28px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+h2{font-size:clamp(22px,3.4vw,28px);margin:0 0 6px}
+.sub{color:var(--muted);font-size:14px;margin:0 0 20px;max-width:42em}
+
+/* 記号の「␣」＝半角スペース */
+.sp{color:var(--pink);font-weight:700}
+
+/* ===== 3枚のシート ===== */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px}
+.step{display:flex;gap:10px;align-items:flex-start}
+.num{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
+.n1{background:var(--navy-soft)}.n2{background:var(--pink)}.n3{background:var(--navy)}
+.step b{display:block}
+.step small{color:var(--muted);font-size:13px;line-height:1.5;display:block}
+
+.stage{
+  position:relative;height:340px;margin:8px 0 4px;
+  perspective:1100px;cursor:grab;user-select:none;touch-action:none;
+}
+.stage:active{cursor:grabbing}
+.rig{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .05s linear}
+.sheet{
+  position:absolute;top:50%;left:50%;width:220px;height:170px;margin:-85px 0 0 -110px;
+  border:2px solid;padding:12px 14px;font-size:13px;line-height:2;
+  transition:transform .35s ease;backface-visibility:visible;
+}
+.sheet .tt{font-weight:700;font-size:13px;margin-bottom:6px;line-height:1.4}
+.s1{background:#f1f2f8;border-color:var(--navy-soft);color:var(--navy)}
+.s1 .tt{color:var(--navy-soft)}
+.s2{background:var(--pink-bg);border-color:var(--pink)}
+.s2 .tt{color:var(--pink)}
+.s3{background:#fff;border-color:var(--navy)}
+.s3 .tt{color:var(--navy)}
+.s3 .big{font-size:20px;font-weight:700;line-height:1.5;margin:4px 0}
+.s3 ul{margin:0;padding-left:1.1em;line-height:1.8}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:14px;font-size:14px}
+.controls label{display:flex;align-items:center;gap:10px}
+.controls input[type=range]{width:220px;accent-color:var(--pink)}
+.controls button{font:inherit;font-size:13px;padding:5px 14px;border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:4px;cursor:pointer}
+.controls button:hover{background:var(--navy);color:#fff}
+.hint{font-size:13px;color:var(--muted)}
+
+/* ===== 記法一覧 ===== */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{border:1px solid #9a9caa;border-radius:3px;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.card h3{margin:0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:6px;flex-wrap:wrap}
+.tag{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--pink);font-weight:700}
+.src{background:var(--gray-bg);border-radius:4px;padding:8px 10px;font-size:12.5px;white-space:pre-wrap;line-height:1.75;margin:0;font-family:ui-monospace,Menlo,Consolas,"Noto Sans Mono",monospace}
+.out{border:1.5px dashed #b7b9c3;border-radius:4px;padding:8px 10px;font-size:13px;line-height:1.7}
+.out p{margin:0 0 4px}.out p:last-child{margin:0}
+.out ul,.out ol{margin:0;padding-left:1.4em}
+.out h4{margin:0}
+.note{font-size:12px;color:var(--muted);line-height:1.6;margin:0}
+.note b{color:var(--text)}
+.out blockquote{margin:0;border-left:4px solid var(--pink);padding-left:10px;color:#333}
+.out code{background:var(--gray-bg);padding:1px 4px;border-radius:3px;font-size:12px}
+.out pre{margin:0;background:var(--gray-bg);padding:6px 8px;border-radius:3px;font-size:12px}
+.out table{border-collapse:collapse;width:100%;font-size:13px}
+.out th{background:var(--navy);color:#fff;padding:5px;text-align:left}
+.out td{border:1px solid var(--line);padding:5px}
+.out td.c{text-align:center}
+.imgbox{display:inline-block;border:1.5px solid #555;padding:2px 10px;border-radius:3px;font-size:12.5px}
+.out hr{border:0;border-top:1px solid #888;margin:8px 0}
+.chk{list-style:none;padding-left:.2em!important}
+.chk li{display:flex;gap:6px;align-items:center}
+
+/* ===== 毎日シート ===== */
+.meta{font-size:14px;margin-bottom:16px;word-spacing:.6em}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.lines div{border-bottom:1px solid #555;height:30px}
+.q{margin:0 0 12px;font-size:14px}
+.q span{display:inline-block;margin-right:12px}
+.label{font-weight:700;font-size:14px;margin:0}
+
+/* ===== 指導者向け ===== */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.box{border:1px solid #9a9caa;border-radius:8px;padding:16px 18px}
+.box h3{margin:0 0 8px;font-size:16px}
+.box ol,.box ul{margin:0;padding-left:1.3em;font-size:14px}
+.box li{margin-bottom:6px}
+
+.sources ul{font-size:14px;padding-left:1.3em;margin:6px 0}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:12px 0 40px}
+
+@media (max-width:860px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .three,.two{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .steps{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  section.page{padding:24px 16px;margin:12px 8px}
+  .stage{height:580px}
+  .sheet .mono{font-size:11.5px!important}
+  .sheet{width:250px;height:150px;margin:-75px 0 0 -125px;line-height:1.8;padding:8px 12px}
+  .s3 .big{font-size:17px;margin:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .sheet,.rig{transition:none}
+}
+@media print{
+  body{background:#fff}
+  nav.toc,.controls,.hint,.skip{display:none}
+  section.page{box-shadow:none;margin:0;break-after:page;border-radius:0}
+  .stage{cursor:default}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#sheets">本文へ移動</a>
+
+<header class="site">
+  <div class="wrap">
+    <h1>マークダウン記法チートシート</h1>
+    <p class="lead">情報I「コミュニケーションと情報デザイン」。記号で目印をつけるだけで、文章に見出しや箇条書きの構造が生まれます。左の原文と右の表示を見比べて覚えましょう。</p>
+    <nav class="toc" aria-label="ページ内の目次">
+      <a href="#sheets">3枚のシート</a>
+      <a href="#list">記法一覧</a>
+      <a href="#daily">毎日シート</a>
+      <a href="#teacher">指導者向け</a>
+      <a href="#sources">出典</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- 1. 3枚のシート -->
+<section class="page" id="sheets" aria-labelledby="h-sheets">
+  <h2 id="h-sheets">1枚の文章は、3枚のシートでできている</h2>
+  <p class="sub">マークダウンもHTMLも「マークアップ言語」の仲間です。書いた記号（目印）がタグに置き換わり、ブラウザがそれを見た目に変えます。図をドラッグして回し、スライダーでシートをばらしてみましょう。</p>
+
+  <div class="steps">
+    <div class="step"><span class="num n1">1</span><div><b>書く（md原文）</b><small>人が打つ文字。<code>#</code> や <code>-</code> が目印。</small></div></div>
+    <div class="step"><span class="num n2">2</span><div><b>目印がタグになる（HTML）</b><small><code>#</code>→<code>&lt;h1&gt;</code>、<code>-</code>→<code>&lt;li&gt;</code>。スライドで習ったタグと同じ。</small></div></div>
+    <div class="step"><span class="num n3">3</span><div><b>見える（ブラウザの表示）</b><small>タグに従って、大きさや点が付く。</small></div></div>
+  </div>
+
+  <div class="stage" id="stage" role="img" aria-label="3枚のシートの図。1枚目はmd原文「# 今日の予定」「- **数学**」「- 情報I」。2枚目はそれがHTMLタグ h1・strong・li に置き換わったもの。3枚目はブラウザ表示で、大見出し「今日の予定」と、太字の「数学」、「情報I」の箇条書き。">
+    <div class="rig" id="rig">
+      <div class="sheet s1" id="sh1" aria-hidden="true">
+        <div class="tt">1 書く（md原文）</div>
+        <div class="mono"># 今日の予定<br>- **数学**<br>- 情報I</div>
+      </div>
+      <div class="sheet s2" id="sh2" aria-hidden="true">
+        <div class="tt">2 目印→タグ（HTML）</div>
+        <div class="mono" style="font-size:12px">&lt;h1&gt;今日の予定&lt;/h1&gt;<br>&lt;li&gt;&lt;strong&gt;数学&lt;/strong&gt;&lt;/li&gt;<br>&lt;li&gt;情報I&lt;/li&gt;</div>
+      </div>
+      <div class="sheet s3" id="sh3" aria-hidden="true">
+        <div class="tt">3 見える（表示）</div>
+        <div class="big">今日の予定</div>
+        <ul><li><strong>数学</strong></li><li>情報I</li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="controls">
+    <label for="spread">重ねる <input type="range" id="spread" min="0" max="100" value="100" aria-label="シートの間隔"> ばらす</label>
+    <button type="button" id="reset">向きを戻す</button>
+    <span class="hint">図はドラッグ（スマホは指でなぞる）で回せます。矢印キーでも回せます。</span>
+  </div>
+</section>
+
+<!-- 2. 記法一覧 -->
+<section class="page" id="list" aria-labelledby="h-list">
+  <h2 id="h-list">記法一覧</h2>
+  <p class="sub">灰色が打つ文字、点線の枠が表示です。<span class="sp">␣</span> は半角スペースを1つ打つ場所。ここを忘れると崩れます。「GFM」はGitHubなどで使える追加の記法です。</p>
+
+  <div class="grid">
+    <article class="card">
+      <h3>見出し <span class="tag">&lt;h1&gt;〜&lt;h6&gt;</span></h3>
+<pre class="src">#<span class="sp">␣</span>大見出し
+##<span class="sp">␣</span>中見出し
+###<span class="sp">␣</span>小見出し</pre>
+      <div class="out"><h4 style="font-size:20px">大見出し</h4><h4 style="font-size:17px">中見出し</h4><h4 style="font-size:14px">小見出し</h4></div>
+      <p class="note"><b>#の後に<span class="sp">␣</span></b>。#の数が階層（1〜6）。</p>
+    </article>
+
+    <article class="card">
+      <h3>段落と改行 <span class="tag">&lt;p&gt; &lt;br&gt;</span></h3>
+<pre class="src">1行目の文。
+続けて書くと同じ段落。
+
+空行で次の段落。</pre>
+      <div class="out"><p>1行目の文。 続けて書くと同じ段落。</p><p>空行で次の段落。</p></div>
+      <p class="note">改行1回は同じ段落。<b>空行</b>で段落が分かれる。行末に<span class="sp">␣␣</span>2つで改行。</p>
+    </article>
+
+    <article class="card">
+      <h3>強調（太字） <span class="tag">&lt;strong&gt;</span></h3>
+<pre class="src">ここは<span class="sp">␣</span>**大事**<span class="sp">␣</span>です。</pre>
+      <div class="out"><p>ここは <strong>大事</strong> です。</p></div>
+      <p class="note">*を2つずつで挟む。</p>
+    </article>
+
+    <article class="card">
+      <h3>斜体 <span class="tag">&lt;em&gt;</span></h3>
+<pre class="src">これは<span class="sp">␣</span>*補足*<span class="sp">␣</span>です。</pre>
+      <div class="out"><p>これは <em>補足</em> です。</p></div>
+      <p class="note">*を1つずつで挟む。日本語は斜めに見えにくいので太字を優先。</p>
+    </article>
+
+    <article class="card">
+      <h3>打ち消し線 <span class="tag">&lt;del&gt;</span></h3>
+<pre class="src">~~800円~~<span class="sp">␣</span>600円</pre>
+      <div class="out"><p><del>800円</del> 600円</p></div>
+      <p class="note">GFM。~を2つずつで挟む。</p>
+    </article>
+
+    <article class="card">
+      <h3>箇条書き <span class="tag">&lt;ul&gt; &lt;li&gt;</span></h3>
+<pre class="src">-<span class="sp">␣</span>りんご
+-<span class="sp">␣</span>みかん
+<span class="sp">␣␣</span>-<span class="sp">␣</span>入れ子は<span class="sp">␣</span>2つ下げる</pre>
+      <div class="out"><ul><li>りんご</li><li>みかん<ul style="list-style:circle"><li>入れ子は␣2つ下げる</li></ul></li></ul></div>
+      <p class="note"><b>-の後に<span class="sp">␣</span></b>。順番がないものを並べる。</p>
+    </article>
+
+    <article class="card">
+      <h3>番号付きリスト <span class="tag">&lt;ol&gt; &lt;li&gt;</span></h3>
+<pre class="src">1.<span class="sp">␣</span>電源を入れる
+2.<span class="sp">␣</span>ログインする
+3.<span class="sp">␣</span>保存する</pre>
+      <div class="out"><ol><li>電源を入れる</li><li>ログインする</li><li>保存する</li></ol></div>
+      <p class="note">数字＋ピリオド＋<span class="sp">␣</span>。手順のように順番があるもの。</p>
+    </article>
+
+    <article class="card">
+      <h3>チェックリスト <span class="tag">&lt;input type="checkbox"&gt;</span></h3>
+<pre class="src">-<span class="sp">␣</span>[<span class="sp">␣</span>]<span class="sp">␣</span>宿題をする
+-<span class="sp">␣</span>[x]<span class="sp">␣</span>提出する</pre>
+      <div class="out"><ul class="chk"><li><input type="checkbox" disabled aria-label="未完了">宿題をする</li><li><input type="checkbox" checked disabled aria-label="完了">提出する</li></ul></div>
+      <p class="note">GFM。[ ] の中は<span class="sp">␣</span>、終わったら x。</p>
+    </article>
+
+    <article class="card">
+      <h3>引用 <span class="tag">&lt;blockquote&gt;</span></h3>
+<pre class="src">&gt;<span class="sp">␣</span>情報は受け手の状況を
+&gt;<span class="sp">␣</span>考えて発信する。</pre>
+      <div class="out"><blockquote>情報は受け手の状況を 考えて発信する。</blockquote></div>
+      <p class="note">行頭に &gt; と<span class="sp">␣</span>。人の言葉や資料を引くとき。</p>
+    </article>
+
+    <article class="card">
+      <h3>コード（文中） <span class="tag">&lt;code&gt;</span></h3>
+<pre class="src">見出しは<span class="sp">␣</span>`&lt;h1&gt;`<span class="sp">␣</span>タグ。</pre>
+      <div class="out"><p>見出しは <code>&lt;h1&gt;</code> タグ。</p></div>
+      <p class="note">バッククォート ` で挟むと記号がそのまま出る。</p>
+    </article>
+
+    <article class="card">
+      <h3>コードブロック <span class="tag">&lt;pre&gt;&lt;code&gt;</span></h3>
+<pre class="src">```html
+&lt;p&gt;こんにちは&lt;/p&gt;
+```</pre>
+      <div class="out"><pre>&lt;p&gt;こんにちは&lt;/p&gt;</pre></div>
+      <p class="note">``` の行で上下を挟む。複数行のプログラム用。</p>
+    </article>
+
+    <article class="card">
+      <h3>リンク <span class="tag">&lt;a href&gt;</span></h3>
+<pre class="src">[文部科学省]
+(https://www.mext.go.jp/)</pre>
+      <div class="out"><p><a href="https://www.mext.go.jp/" target="_blank" rel="noopener">文部科学省</a></p></div>
+      <p class="note">[見せる文字](URL)。URLの書き方はスライドの「絶対パス」。実際は1行で続けて書く。</p>
+    </article>
+
+    <article class="card">
+      <h3>画像 <span class="tag">&lt;img alt src&gt;</span></h3>
+<pre class="src">![校舎の正面玄関]
+(img/school.jpg)</pre>
+      <div class="out"><span class="imgbox">画像：校舎の正面玄関</span></div>
+      <p class="note">[ ]は<b>代替テキスト</b>（読み上げで使う）。img/〜は「相対パス」。</p>
+    </article>
+
+    <article class="card">
+      <h3>表 <span class="tag">&lt;table&gt;</span></h3>
+<pre class="src">|<span class="sp">␣</span>科目<span class="sp">␣</span>|<span class="sp">␣</span>単位<span class="sp">␣</span>|
+|<span class="sp">␣</span>---<span class="sp">␣</span>|<span class="sp">␣</span>:---:<span class="sp">␣</span>|
+|<span class="sp">␣</span>情報I<span class="sp">␣</span>|<span class="sp">␣</span>2<span class="sp">␣</span>|
+|<span class="sp">␣</span>数学I<span class="sp">␣</span>|<span class="sp">␣</span>3<span class="sp">␣</span>|</pre>
+      <div class="out"><table><thead><tr><th scope="col">科目</th><th scope="col" style="text-align:center">単位</th></tr></thead><tbody><tr><td>情報I</td><td class="c">2</td></tr><tr><td>数学I</td><td class="c">3</td></tr></tbody></table></div>
+      <p class="note">GFM。2行目の区切り行が必須。: で左・中央・右寄せ。</p>
+    </article>
+
+    <article class="card">
+      <h3>区切り線 <span class="tag">&lt;hr&gt;</span></h3>
+<pre class="src">上の話
+
+---
+
+下の話</pre>
+      <div class="out"><p>上の話</p><hr><p>下の話</p></div>
+      <p class="note">- を3つ以上。前後に空行を入れる。</p>
+    </article>
+
+    <article class="card">
+      <h3>記号をそのまま出す（エスケープ）</h3>
+<pre class="src">\*これは太字にしない\*</pre>
+      <div class="out"><p>*これは太字にしない*</p></div>
+      <p class="note">記号の前に \（バックスラッシュ）。</p>
+    </article>
+  </div>
+</section>
+
+<!-- 3. 毎日シート -->
+<section class="page" id="daily" aria-labelledby="h-daily">
+  <h2 id="h-daily">毎日シート</h2>
+  <p class="meta">日付：　　月　　日（　）　　年　　組　　番　氏名：</p>
+  <div class="two">
+    <div>
+      <p class="label">今日のお題：＿＿＿＿＿＿＿＿＿＿＿＿＿＿</p>
+      <p class="note">mdで書いてみる（<span class="sp">␣</span>＝半角スペースも書く）</p>
+      <div class="lines" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div>
+      <p class="label" style="margin-bottom:10px">確認問題（正しいものを○で囲む）</p>
+      <p class="q">Q1.「## 目標」はHTMLのどのタグになる？<br><span>（ &lt;h2&gt; ）</span><span>（ &lt;h1&gt; ）</span><span>（ &lt;p&gt; ）</span><span>（ &lt;ul&gt; ）</span></p>
+      <p class="q">Q2. 太字にする書き方は？<br><span>（ **文字** ）</span><span>（ *文字* ）</span><span>（ ~~文字~~ ）</span><span>（ `文字` ）</span></p>
+      <p class="q">Q3.「#見出し」が見出しにならない。原因は？<br><span>（ #の後に半角スペースがない ）</span><span>（ #が2つ必要 ）</span><span>（ #を全角にすべき ）</span><span>（ 行末にスペースがない ）</span></p>
+    </div>
+  </div>
+  <p class="label" style="margin-top:20px">ひとこと振り返り</p>
+  <div class="lines" aria-hidden="true"><div></div><div></div></div>
+</section>
+
+<!-- 4. 指導者向け -->
+<section class="page" id="teacher" aria-labelledby="h-teacher">
+  <h2 id="h-teacher">指導者向け</h2>
+  <p class="sub">既存スライド（HTML／CSS／JS、マークアップ言語、パス）の続きとして1単位時間で扱う想定の例です。</p>
+  <div class="three">
+    <div class="box">
+      <h3>50分の流れ（例）</h3>
+      <ol>
+        <li>導入 5分：3枚のシート図を回して「記号→タグ→見た目」を確認。スライドのHTMLタグとつなぐ</li>
+        <li>展開① 15分：記法一覧から見出し・箇条書き・強調・リンクの4つを全員で書く</li>
+        <li>展開② 20分：毎日シートのお題で自分の文書を作る。隣の人と表示を見せ合う</li>
+        <li>まとめ 10分：確認問題3問、振り返りをコピーして提出</li>
+      </ol>
+    </div>
+    <div class="box">
+      <h3>つまずきやすい所と声かけ</h3>
+      <ul>
+        <li>#見出し：半角スペースがない →「<span class="sp">␣</span>を探して」</li>
+        <li>全角の ＃ や －：記号に見えて目印にならない →「入力を半角にして打ち直す」</li>
+        <li>改行が消える：1回の改行は同じ段落 →「空行を1行入れる」</li>
+        <li>表が崩れる：2行目の区切り行がない →「| --- | を列の数だけ」</li>
+        <li>画像の ![ ] が空：読み上げで内容が伝わらない →「写っている物を言葉にする」</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>発問と見取り</h3>
+      <ul>
+        <li>「同じ内容を、箇条書きと表で書くと何が違う？」</li>
+        <li>「## はHTMLでは何タグ？」（確認問題で見取る）</li>
+        <li>「崩れたとき、どこから確かめた？」（振り返りの記述で見取る）</li>
+        <li>評価場面：展開②の成果物と、まとめの振り返り。全員を毎時間ではなく、単元の中で分けて見取る</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5. 出典 -->
+<section class="page sources" id="sources" aria-labelledby="h-sources">
+  <h2 id="h-sources">出典</h2>
+  <ul>
+    <li>記法の基準：<a href="https://spec.commonmark.org/0.31.2/" target="_blank" rel="noopener">CommonMark Spec Version 0.31.2（2024-01-28）</a></li>
+    <li>表・チェックリスト・打ち消し線：<a href="https://github.github.com/gfm/" target="_blank" rel="noopener">GitHub Flavored Markdown Spec</a></li>
+    <li>科目の位置づけ：文部科学省<a href="https://www.mext.go.jp/content/1407073_11_1_2.pdf" target="_blank" rel="noopener">『高等学校学習指導要領（平成30年告示）解説 情報編』</a></li>
+  </ul>
+  <p class="note">例文はこの教材のために作った見本です。</p>
+</section>
+</main>
+
+<footer>マークダウン記法チートシート｜情報I</footer>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage'),rig=document.getElementById('rig');
+  var s=[document.getElementById('sh1'),document.getElementById('sh2'),document.getElementById('sh3')];
+  var spread=document.getElementById('spread');
+  var rx=-12,ry=18,drag=false,px=0,py=0;
+  function layout(){
+    var v=spread.value/100;
+    var narrow=window.innerWidth<620;
+    var gapX=(narrow?0:290)*v, gapY=(narrow?180:0)*v, gapZ=40*v;
+    s.forEach(function(el,i){
+      var k=i-1;
+      el.style.transform='translate3d('+(k*gapX)+'px,'+(k*gapY)+'px,'+(-k*gapZ)+'px)';
+    });
+    rig.style.transform='rotateX('+rx+'deg) rotateY('+ry+'deg)';
+  }
+  stage.addEventListener('pointerdown',function(e){drag=true;px=e.clientX;py=e.clientY;stage.setPointerCapture(e.pointerId);});
+  stage.addEventListener('pointermove',function(e){
+    if(!drag)return;
+    ry+= (e.clientX-px)*0.4; rx-= (e.clientY-py)*0.4;
+    rx=Math.max(-70,Math.min(70,rx));
+    px=e.clientX;py=e.clientY;layout();
+  });
+  ['pointerup','pointercancel'].forEach(function(t){stage.addEventListener(t,function(){drag=false;});});
+  stage.tabIndex=0;
+  stage.addEventListener('keydown',function(e){
+    var d={ArrowLeft:[0,-8],ArrowRight:[0,8],ArrowUp:[8,0],ArrowDown:[-8,0]}[e.key];
+    if(!d)return;e.preventDefault();
+    rx=Math.max(-70,Math.min(70,rx+d[0]));ry+=d[1];layout();
+  });
+  spread.addEventListener('input',layout);
+  document.getElementById('reset').addEventListener('click',function(){rx=-12;ry=18;layout();});
+  window.addEventListener('resize',layout);
+  layout();
+})();
+</script>
+</body>
+</html>
